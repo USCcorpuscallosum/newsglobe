@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package twitter4j.examples.geo;
-
 import twitter4j.Place;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -34,8 +32,8 @@ public final class GetGeoDetails {
      * @param args message
      */
     public static void main(String[] args) {
-        twitter.setOAuthConsumer("IIkKrnUmyYhoXmWZibMah068M", "5CTmBJ8dMBelClERjlMMi6Ly5gJ6YrYdOS7srNIQwxceLlGWOM");
-        twitter.setOAuthAccessToken("629643072-bJgaYaazlSlLbnWPg12Plhq9kg8IjfiVJOkPPNBD", "zI2cXksjvXl4yqmJtMaIS1vwt1lWdunXF6BOBPtLPk7JE");
+        //twitter.setOAuthConsumer("IIkKrnUmyYhoXmWZibMah068M", "5CTmBJ8dMBelClERjlMMi6Ly5gJ6YrYdOS7srNIQwxceLlGWOM");
+        //twitter.setOAuthAccessToken("629643072-bJgaYaazlSlLbnWPg12Plhq9kg8IjfiVJOkPPNBD", "zI2cXksjvXl4yqmJtMaIS1vwt1lWdunXF6BOBPtLPk7JE");
 		
 		if (args.length < 1) {
             System.out.println("Usage: java twitter4j.examples.geo.GetGeoDetails [place id]");

@@ -1,11 +1,35 @@
+import java.io.File;
+import java.io.InputStreamReader;  
+import java.io.BufferedReader;  
 
 public class NewsMap {
-	private int[][] mapValues;
+	public int[][] mapValues;
 	
 	public NewsMap(int width, int height) {
 		this.mapValues = new int[width][height];
+		readMap();	
 	}
 	
+	public readMap()
+	{
+		//read data from the file into mapValues
+		String pathName = "world_map.txt";
+		File fileName = new File(pathName);
+		InputStreamReader reader = new InputStreamReader(  
+                    new FileInputStream(fileName));
+		BufferedReader br = new BufferedReader(reader);
+		
+		int i = 0, j;
+		String line = "";
+		while((line = br.readLine()) != null)
+		{
+			String[] tmp = line.split(" ");
+			j = -1;
+			for(String str : tmp)
+				mapValues[i][++j] = str == "0"? 0 : 1;
+			i++;	
+		}
+	}
 
 	public int SetCell(int x, int y, int value)
 	{

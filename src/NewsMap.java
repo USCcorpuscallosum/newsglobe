@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;  
 import java.io.BufferedReader;  
 
@@ -10,7 +11,7 @@ public class NewsMap {
 		readMap();	
 	}
 	
-	public readMap()
+	public void readMap()
 	{
 		//read data from the file into mapValues
 		String pathName = "world_map.txt";

@@ -1,4 +1,3 @@
-
 public class News {
 
 	public String newsText;

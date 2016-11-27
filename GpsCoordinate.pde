@@ -1,4 +1,3 @@
-
 public class GpsCoordinate {
 	private double latitude;
 	private double longitude;

@@ -1,6 +1,3 @@
-
-import processing.core.PApplet;
-
 public class PointDrawable extends Drawable {
 
 	private News news;
@@ -12,12 +9,12 @@ public class PointDrawable extends Drawable {
 	}
 
 	@Override
-	public void Draw() {
+	public void draw() {
 		float xPixelCoordinate = (float) ((news.getGpsCoordinate().getLongitude() + 180) * (mainScreen.pixelWidth / 360.0));
 		float yPixelCoordinate = (float) ((news.getGpsCoordinate().getLatitude() + 90) * (mainScreen.pixelHeight / 180.0));
-        float dotDiameter = 10f;
+    float dotDiameter = 10f;
 		
-        System.out.println("Drawing news with GpsCoordinate + " + news.getGpsCoordinate().getLongitude() + ", " + news.getGpsCoordinate().getLatitude() + " at " + xPixelCoordinate + "; " + yPixelCoordinate);
-		mainScreen.ellipse(xPixelCoordinate, yPixelCoordinate, dotDiameter, dotDiameter);
+    //System.out.println("Drawing news with GpsCoordinate + " + news.getGpsCoordinate().getLongitude() + ", " + news.getGpsCoordinate().getLatitude() + " at " + xPixelCoordinate + "; " + yPixelCoordinate);
+		ellipse(xPixelCoordinate, yPixelCoordinate, dotDiameter, dotDiameter);
 	}
 }

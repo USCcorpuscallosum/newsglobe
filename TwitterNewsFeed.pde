@@ -74,7 +74,7 @@ public class TwitterNewsFeed extends NewsFeed {
   public ArrayList<News> getNewNews() {
     synchronized(latest) {
       if(latest.size() > 0){
-        ArrayList<News> toReturn = (ArrayList<News>) latest.clone(); //NOTE: This could be the problem. Does a shallow copy prevent children from being cleared by the GC when the origin is removed?
+        ArrayList<News> toReturn = (ArrayList<News>) latest.clone();
         latest = new ArrayList<News>();
         return toReturn;
       } else {

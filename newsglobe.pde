@@ -1,7 +1,5 @@
 //All the items that get drawn on the map.
 private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-//Not sure what this is for.
-NewsManager newsManager = new NewsManager();
 TwitterNewsFeed feed;
 
 void setup() {

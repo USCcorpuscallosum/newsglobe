@@ -1,20 +1,21 @@
 public class PointDrawable extends Drawable {
 
 	private News news;
-	private PApplet mainScreen;
+  private color col;
 	
-	public PointDrawable(News news, PApplet mainScreen) {
-		this.news = news;
-		this.mainScreen = mainScreen;
+	public PointDrawable(News _news, color _col) {
+		this.news = _news;
+    this.col = _col;
 	}
 
 	@Override
 	public void draw() {
-		float xPixelCoordinate = (float) ((news.getGpsCoordinate().getLongitude() + 180) * (mainScreen.pixelWidth / 360.0));
-		float yPixelCoordinate = (float) ((news.getGpsCoordinate().getLatitude() + 90) * (mainScreen.pixelHeight / 180.0));
+    float xPixelCoordinate = (float) ((news.getGpsCoordinate().getLongitude() + 180) * (pixelWidth / 360.0));
+		float yPixelCoordinate = (float) ((news.getGpsCoordinate().getLatitude() + 90) * (pixelHeight / 180.0));
     float dotDiameter = 10f;
 		
-    //System.out.println("Drawing news with GpsCoordinate + " + news.getGpsCoordinate().getLongitude() + ", " + news.getGpsCoordinate().getLatitude() + " at " + xPixelCoordinate + "; " + yPixelCoordinate);
+    System.out.println("Drawing news with GpsCoordinate + " + news.getGpsCoordinate().getLongitude() + ", " + news.getGpsCoordinate().getLatitude() + " at " + xPixelCoordinate + "; " + yPixelCoordinate);
+    fill(col);
 		ellipse(xPixelCoordinate, yPixelCoordinate, dotDiameter, dotDiameter);
 	}
 }

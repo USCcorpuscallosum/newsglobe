@@ -3,10 +3,12 @@ import twitter4j.*;
 public class TwitterNewsFeed extends NewsFeed {
  
   ArrayList<News> latest;
+  TwitterStream feed;
   
   Configuration config;
   
   {
+    //At runtime initialization, add the consumer keys and tokens to twitter4j. Only runs once.
     ConfigurationBuilder build = new ConfigurationBuilder();
     build.setOAuthConsumerKey("IIkKrnUmyYhoXmWZibMah068M");
     build.setOAuthConsumerSecret("5CTmBJ8dMBelClERjlMMi6Ly5gJ6YrYdOS7srNIQwxceLlGWOM");
@@ -19,22 +21,22 @@ public class TwitterNewsFeed extends NewsFeed {
     //Perform a search on the twitter API to fetch the last few related search terms.
     //Open a connection to the twitter Streaming API based on the keywords above.
     
+    latest = new ArrayList<News>();
+    
     StatusListener feedUpdater = new StatusListener() {
       @Override
       public void onStatus(Status status) {
-        String contents = status.getText();
-        GpsCoordinate loc;
         try{
-          println(status.getPlace().getName());
-          println(status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude() + ", " + status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude());
-          //print(status.getPlace().getName());
-          //loc = place2Gps(status.getPlace());
-          //print(contents);
-          //print(loc.getLatitude());
-          //println(loc.getLongitude());
-          //latest.add(new News(contents, loc));
+          //Get the text of the tweets, can print a sample for debug or whatever.
+          String contents = status.getText();
+          //Fetch the geolocation of the tweets. Will be used to mark the dynamic map.
+          GpsCoordinate loc = new GpsCoordinate(status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude(), status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude());
+          //Add the news item to the queue of unread tweets.
+          synchronized(latest) {
+            latest.add(new News(contents, loc));
+          }
         } catch (NullPointerException e) {
-          //print(contents);
+          //Do nothing.
         }
       }
   
@@ -64,19 +66,31 @@ public class TwitterNewsFeed extends NewsFeed {
       }
     };
     
-    TwitterStream feed = new TwitterStreamFactory(config).getInstance();
+    feed = new TwitterStreamFactory(config).getInstance();
     feed.addListener(feedUpdater);
     feed.filter(keywords);
   }
   
-  public ArrayList<News> GetNewNews() {
-    return latest;
+  public ArrayList<News> getNewNews() {
+    synchronized(latest) {
+      if(latest.size() > 0){
+        ArrayList<News> toReturn = (ArrayList<News>) latest.clone(); //NOTE: This could be the problem. Does a shallow copy prevent children from being cleared by the GC when the origin is removed?
+        latest = new ArrayList<News>();
+        return toReturn;
+      } else {
+        return new ArrayList<News>(); 
+      }
+    }
   }
   
   GpsCoordinate place2Gps(Place place) throws NullPointerException {
     double lat = place.getGeometryCoordinates()[0][0].getLatitude();
     double lon = place.getGeometryCoordinates()[0][0].getLongitude();
     return new GpsCoordinate(lat, lon);
+  }
+  
+  void kill() {
+    feed.cleanUp();
   }
   
 }

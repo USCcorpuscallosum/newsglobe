@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
 public abstract class NewsFeed {
-	public abstract ArrayList<News> GetNewNews();
+	public abstract ArrayList<News> getNewNews();
 }

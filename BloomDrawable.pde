@@ -2,6 +2,7 @@ public class BloomDrawable extends Drawable {
 
   final float drag = 1.02;
   final float scaledrag = 1.1;
+  final float speedCap = .1;
   
   private News news;
   private color col;
@@ -26,8 +27,8 @@ public class BloomDrawable extends Drawable {
     diameters = new float[numparts];
     scalespeeds = new float[numparts];
     for(int i = 0; i < numparts; i++) {
-      speeds[2 * i] = random(-.1, .1);
-      speeds[2 * i + 1] = random(-.1, .1);
+      speeds[2 * i] = random(-speedCap, speedCap);
+      speeds[2 * i + 1] = random(-speedCap, speedCap);
       locs[2 * i] = long2screen(news.getGpsCoordinate().getLongitude()) + random(0);
       locs[2 * i + 1] = lat2screen(news.getGpsCoordinate().getLatitude()) + random(0);
       diameters[i] = 0;

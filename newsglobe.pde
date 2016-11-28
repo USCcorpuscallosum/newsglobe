@@ -23,7 +23,7 @@ void draw() {
     for(News news : lnewNews) {
       println(news.getNewsText());
       //println(news.getGpsCoordinate().getLatitude());
-      drawables.add(new BloomDrawable(news, color(0, 0, 255)));
+      drawables.add(new BloomDrawable(news, color(200, 234, 246)));
     }
   }
   
@@ -31,7 +31,7 @@ void draw() {
     for(News news : hnewNews) {
       println(news.getNewsText());
       //println(news.getGpsCoordinate().getLatitude());
-      drawables.add(new BloomDrawable(news, color(255, 0, 0)));
+      drawables.add(new BloomDrawable(news, color(251, 208, 95)));
     }
   }  
 

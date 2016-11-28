@@ -5,15 +5,15 @@ TwitterNewsFeed hfeed;
 PImage bg;
 
 void setup() {
-  size(2048, 1024);
+  size(2000, 1000, P3D);
   lfeed = new TwitterNewsFeed("love");
   hfeed = new TwitterNewsFeed("hate");
   
-  bg = loadImage("map/world_map.png");
+  bg = loadImage("map.png");
 }
 
 void draw() {
-  background(color(10, 10, 10));
+  background(bg);
   
   //Get news from twitter stream maintainer.
   ArrayList<News> lnewNews = lfeed.getNewNews();

@@ -11,9 +11,13 @@ public class BloomDrawable extends Drawable {
   private float[] diameters;
   private float[] scalespeeds;
   
+  PImage img;
+  
   public BloomDrawable(News _news, color _col) {
     this.news = _news;
     this.col = _col;
+    
+    img = loadImage("blur.png");
     
     numparts = (int) random(4, 8);
     
@@ -33,8 +37,8 @@ public class BloomDrawable extends Drawable {
 
   @Override
   public void draw() {
-    fill(col);
-    ellipseMode(CENTER);
+    noStroke();
+
     for(int i = 0; i < numparts; i++) {
       locs[2 * i] += speeds[2 * i];
       locs[2 * i + 1] += speeds[2 * i + 1];
@@ -44,16 +48,27 @@ public class BloomDrawable extends Drawable {
       diameters[i] += scalespeeds[i];
       scalespeeds[i] /= scaledrag;
       
-      ellipse(locs[2 * i], locs[2 * i + 1], diameters[i], diameters[i]);
+      float d = diameters[i];
+      
+      //ellipse(locs[2 * i], locs[2 * i + 1], diameters[i], diameters[i]);
+      //println(locs[2 * i] + " " + locs[2 * i + 1]);
+      beginShape();
+      texture(img);
+      tint(col);
+      vertex(locs[2 * i] + d, locs[2 * i + 1] + d, 0, 0);
+      vertex(locs[2 * i] + d, locs[2 * i + 1] - d, img.width, 0);
+      vertex(locs[2 * i] - d, locs[2 * i + 1] - d, img.width, img.height);
+      vertex(locs[2 * i] - d, locs[2 * i + 1] + d, 0, img.height);
+      endShape();
     }
   }
   
   private float long2screen(float longe) {
-    return ((longe + 180) * (pixelWidth / 360.0));
+    return ((longe + 180) * (width / 360.0));
   }
   
   private float lat2screen(float lat) {
-    return ((-lat + 90) * (pixelHeight / 180.0));
+    return ((-lat + 90) * (height / 180.0));
   }
   
 }

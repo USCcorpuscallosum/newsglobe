@@ -1,4 +1,4 @@
-public class BloomDrawable extends Drawable {
+public class BloomSparkDrawable extends Drawable {
 
   final float drag = 1.02;
   final float scaledrag = 1.1;
@@ -11,10 +11,12 @@ public class BloomDrawable extends Drawable {
   private float[] locs;
   private float[] diameters;
   private float[] scalespeeds;
+  private float ringWeight = 255;
+  private float ringSize = 0;
   
   PImage img;
   
-  public BloomDrawable(News _news, color _col) {
+  public BloomSparkDrawable(News _news, color _col) {
     this.news = _news;
     this.col = _col;
     
@@ -61,6 +63,14 @@ public class BloomDrawable extends Drawable {
       vertex(locs[2 * i] - d, locs[2 * i + 1] - d, img.width, img.height);
       vertex(locs[2 * i] - d, locs[2 * i + 1] + d, 0, img.height);
       endShape();
+    }
+    
+    stroke(col, ringWeight);
+    noFill();
+    if(ringWeight > 2) {
+      ringWeight /= 1.01;
+      ellipse(long2screen(news.getGpsCoordinate().getLongitude()), lat2screen(news.getGpsCoordinate().getLatitude()), ringSize, ringSize);
+      ringSize += 1;
     }
   }
   

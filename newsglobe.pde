@@ -11,11 +11,17 @@ PImage bg;
 PFont myFont;
 SoundFile backgroundSound;
 
+PImage fadeAid;
+int fadeOpac;
+float textFall;
+int lastSwitch = 0;
+
 color bcol = color(200, 234, 246);
 color ocol = color(251, 208, 75);
 
 void setup() {
-  size(2000, 1000, P3D);
+  fullScreen(P3D);
+  
   bfeed = new TwitterNewsFeed(bterms[termIndex]);
   ofeed = new TwitterNewsFeed(oterms[termIndex]);
   
@@ -29,13 +35,16 @@ void setup() {
   textFont(myFont);
 }
 
-PImage fadeAid;
-int fadeOpac;
-float textFall;
-int lastSwitch = 0;
-
 void draw() {
-  background(bg);
+  noStroke();
+  beginShape();
+  tint(255);
+  texture(bg);
+  vertex(0, 0, 0, 0);
+  vertex(width, 0, bg.width, 0);
+  vertex(width, height, bg.width, bg.height);
+  vertex(0, height, 0, bg.height);
+  endShape();
   
   //Pick new terms to look at.
   if((millis() / 1000) - lastSwitch > 60) {

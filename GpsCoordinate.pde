@@ -1,18 +1,18 @@
 public class GpsCoordinate {
-	private double latitude;
-	private double longitude;
+	private float latitude;
+	private float longitude;
 	
 	
-	public GpsCoordinate(double latitude, double longitude) {
+	public GpsCoordinate(float latitude, float longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 
-	public double getLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public double getLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 

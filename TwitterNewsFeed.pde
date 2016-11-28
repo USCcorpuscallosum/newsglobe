@@ -30,7 +30,7 @@ public class TwitterNewsFeed extends NewsFeed {
           //Get the text of the tweets, can print a sample for debug or whatever.
           String contents = status.getText();
           //Fetch the geolocation of the tweets. Will be used to mark the dynamic map.
-          GpsCoordinate loc = new GpsCoordinate(status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude(), status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude());
+          GpsCoordinate loc = new GpsCoordinate((float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude(), (float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude());
           //Add the news item to the queue of unread tweets.
           synchronized(latest) {
             latest.add(new News(contents, loc));
@@ -81,12 +81,6 @@ public class TwitterNewsFeed extends NewsFeed {
         return new ArrayList<News>(); 
       }
     }
-  }
-  
-  GpsCoordinate place2Gps(Place place) throws NullPointerException {
-    double lat = place.getGeometryCoordinates()[0][0].getLatitude();
-    double lon = place.getGeometryCoordinates()[0][0].getLongitude();
-    return new GpsCoordinate(lat, lon);
   }
   
   void kill() {

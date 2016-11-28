@@ -1,14 +1,17 @@
 //All the items that get drawn on the map.
 private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
 TwitterNewsFeed feed;
+PImage bg;
 
 void setup() {
-  size(1024, 768);
-  feed = new TwitterNewsFeed("love");
+  size(2048, 1024);
+  feed = new TwitterNewsFeed("trump");
+  
+  bg = loadImage("map/world_map.png");
 }
 
 void draw() {
-  background(20);
+  background(bg);
   
   //Get news from twitter stream maintainer.
   ArrayList<News> newNews = feed.getNewNews();

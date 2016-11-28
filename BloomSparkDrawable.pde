@@ -1,6 +1,6 @@
 public class BloomSparkDrawable extends Drawable {
 
-  final float drag = 1.02;
+  final float drag = 1.01;
   final float scaledrag = 1.1;
   final float speedCap = .1;
   

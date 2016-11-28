@@ -2,8 +2,8 @@ import processing.sound.*;
 
 //All the items that get drawn on the map.
 private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-String[] bterms = {"LOVE", "NATURAL", "RICH", "SAFE", "PEACE", "ART", "MAN", "HOT", "DREAM", "LIFE"};
-String[] oterms = {"HATE", "FAKE", "POOR", "AFRAID", "WAR", "TECHNOLOGY", "WOMAN", "COLD", "REAL", "DEATH"};
+String[] bterms = {"LOVE", "RICH", "SAFE", "PEACE", "ART", "MAN", "HOT", "DREAM", "LIFE", "JUSTICE", "DAY", "CALM"};
+String[] oterms = {"HATE", "POOR", "AFRAID", "WAR", "TECHNOLOGY", "WOMAN", "COLD", "REAL", "DEATH", "CRIME", "NIGHT", "STRESSED"};
 int termIndex = 0;
 TwitterNewsFeed ofeed;
 TwitterNewsFeed bfeed;
@@ -19,9 +19,12 @@ int lastSwitch = 0;
 color bcol = color(200, 234, 246);
 color ocol = color(251, 208, 75);
 
+int oldHeight;
+
 void setup() {
-  fullScreen(P3D);
-  
+  fullScreen(P3D, 2);
+  oldHeight = height;
+  height = width / 2;
   bfeed = new TwitterNewsFeed(bterms[termIndex]);
   ofeed = new TwitterNewsFeed(oterms[termIndex]);
   
@@ -36,6 +39,8 @@ void setup() {
 }
 
 void draw() {
+  translate(0, (oldHeight - height) / 2);
+  background(0);
   noStroke();
   beginShape();
   tint(255);
@@ -75,6 +80,11 @@ void draw() {
     
     bfeed = new TwitterNewsFeed(bterms[termIndex]);
     ofeed = new TwitterNewsFeed(oterms[termIndex]);
+    
+    int random = (int) random(1, 4);
+    SoundFile switchSound = new SoundFile(this, "swells/swell" + random + ".ogg");
+    switchSound.amp(0.2);
+    switchSound.play();
   }
   
   //Get news from twitter stream maintainer.
@@ -118,14 +128,15 @@ void draw() {
   
   //Manage the crossfades.
   if(fadeOpac > 2 && fadeAid != null) {
+    translate(0, -(oldHeight - height) / 2);
     noStroke();
     beginShape();
     texture(fadeAid);
     tint(255, fadeOpac);
     vertex(0, 0, 0, 0);
     vertex(width, 0, width, 0);
-    vertex(width, height, width, height);
-    vertex(0, height, 0, height);
+    vertex(width, oldHeight, width, oldHeight);
+    vertex(0, oldHeight, 0, oldHeight);
     endShape();
     fadeOpac -= 2;
   }

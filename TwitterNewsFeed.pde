@@ -84,8 +84,8 @@ public class TwitterNewsFeed extends NewsFeed {
   }
   
   void kill() {
-    feed.shutdown();
     feed.cleanUp();
+    feed.shutdown();
   }
   
 }

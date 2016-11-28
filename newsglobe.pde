@@ -1,26 +1,37 @@
 //All the items that get drawn on the map.
 private ArrayList<Drawable> drawables = new ArrayList<Drawable>();
-TwitterNewsFeed feed;
+TwitterNewsFeed lfeed;
+TwitterNewsFeed hfeed;
 PImage bg;
 
 void setup() {
   size(2048, 1024);
-  feed = new TwitterNewsFeed("trump");
+  lfeed = new TwitterNewsFeed("love");
+  hfeed = new TwitterNewsFeed("hate");
   
   bg = loadImage("map/world_map.png");
 }
 
 void draw() {
-  background(bg);
+  background(color(10, 10, 10));
   
   //Get news from twitter stream maintainer.
-  ArrayList<News> newNews = feed.getNewNews();
+  ArrayList<News> lnewNews = lfeed.getNewNews();
+  ArrayList<News> hnewNews = hfeed.getNewNews();
 
-  if(newNews.size() > 0) {
-    for(News news : newNews) {
+  if(lnewNews.size() > 0) {
+    for(News news : lnewNews) {
       println(news.getNewsText());
       //println(news.getGpsCoordinate().getLatitude());
-      drawables.add(new PointDrawable(news, color(255, 0, 0)));
+      drawables.add(new BloomDrawable(news, color(0, 0, 255)));
+    }
+  }
+  
+  if(hnewNews.size() > 0) {
+    for(News news : hnewNews) {
+      println(news.getNewsText());
+      //println(news.getGpsCoordinate().getLatitude());
+      drawables.add(new BloomDrawable(news, color(255, 0, 0)));
     }
   }  
 

@@ -6,7 +6,7 @@ public class TwitterNewsFeed extends NewsFeed {
   TwitterStream feed;
   
   private float n = 49.8;
-  private float s = 24.2;
+  private float s = 25;
   private float e = -66.5;
   private float w = -125.5;
   

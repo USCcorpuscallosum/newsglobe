@@ -1,9 +1,10 @@
 public class BloomSparkDrawable extends Drawable {
 
-  final float drag = 1.01;
-  final float scaledrag = 1.1;
   final float speedCap = .1;
+  final float drag = 1.01;
+  final float scaledrag = 1.04;
   final float colorFudge = .1;
+  final float scaleSpeedCap = .5;
   
   private News news;
   private color col;
@@ -29,7 +30,7 @@ public class BloomSparkDrawable extends Drawable {
     colorMode(RGB, 255);
     img = loadImage("blur.png");
  
-    numparts = (int) random(4, 8);
+    numparts = (int) random(15, 30);
     
     speeds = new float[numparts * 2];
     locs = new float[numparts * 2];
@@ -41,7 +42,7 @@ public class BloomSparkDrawable extends Drawable {
       locs[2 * i] = news.getGpsCoordinate().getScreenLong();
       locs[2 * i + 1] = news.getGpsCoordinate().getScreenLat();
       diameters[i] = 0;
-      scalespeeds[i] = random(1);
+      scalespeeds[i] = random(scaleSpeedCap);
     }
   }
 

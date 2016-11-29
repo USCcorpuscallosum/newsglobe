@@ -3,6 +3,7 @@ public class BloomSparkDrawable extends Drawable {
   final float drag = 1.01;
   final float scaledrag = 1.1;
   final float speedCap = .1;
+  final float colorFudge = .05;
   
   private News news;
   private color col;
@@ -13,15 +14,20 @@ public class BloomSparkDrawable extends Drawable {
   private float[] scalespeeds;
   private float ringWeight = 255;
   private float ringSize = 0;
+  private float ringScaler = 2;
+  private float tint = 100;
   
-  PImage img;
+  private PImage img;
   
   public BloomSparkDrawable(News _news, color _col) {
     this.news = _news;
-    this.col = _col;
+    float r = red(_col) * (1 + random(-colorFudge, colorFudge));
+    float b = blue(_col) * (1 + random(-colorFudge, colorFudge));
+    float g = green(_col) * (1 + random(-colorFudge, colorFudge));
+    col = color(r, g, b);    
     
     img = loadImage("blur.png");
-    
+ 
     numparts = (int) random(4, 8);
     
     speeds = new float[numparts * 2];
@@ -57,7 +63,7 @@ public class BloomSparkDrawable extends Drawable {
       //println(locs[2 * i] + " " + locs[2 * i + 1]);
       beginShape();
       texture(img);
-      tint(col, 100);
+      tint(col, tint/=1.0001);
       vertex(locs[2 * i] + d, locs[2 * i + 1] + d, 0, 0);
       vertex(locs[2 * i] + d, locs[2 * i + 1] - d, img.width, 0);
       vertex(locs[2 * i] - d, locs[2 * i + 1] - d, img.width, img.height);
@@ -70,7 +76,8 @@ public class BloomSparkDrawable extends Drawable {
     if(ringWeight > 2) {
       ringWeight /= 1.01;
       ellipse(long2screen(news.getGpsCoordinate().getLongitude()), lat2screen(news.getGpsCoordinate().getLatitude()), ringSize, ringSize);
-      ringSize += 1;
+      ringSize += ringScaler + .25;
+      ringScaler/=1.02;
     }
   }
   

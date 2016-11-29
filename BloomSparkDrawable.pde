@@ -3,7 +3,7 @@ public class BloomSparkDrawable extends Drawable {
   final float drag = 1.01;
   final float scaledrag = 1.1;
   final float speedCap = .1;
-  final float colorFudge = .05;
+  final float colorFudge = .1;
   
   private News news;
   private color col;
@@ -21,11 +21,12 @@ public class BloomSparkDrawable extends Drawable {
   
   public BloomSparkDrawable(News _news, color _col) {
     this.news = _news;
-    float r = red(_col) * (1 + random(-colorFudge, colorFudge));
-    float b = blue(_col) * (1 + random(-colorFudge, colorFudge));
-    float g = green(_col) * (1 + random(-colorFudge, colorFudge));
-    col = color(r, g, b);    
-    
+    colorMode(HSB, 255);
+    float h = hue(_col) * (1 + random(-colorFudge, colorFudge));
+    float s = saturation(_col);
+    float b = brightness(_col);
+    col = color(h, s, b);    
+    colorMode(RGB, 255);
     img = loadImage("blur.png");
  
     numparts = (int) random(4, 8);

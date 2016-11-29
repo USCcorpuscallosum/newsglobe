@@ -11,6 +11,8 @@ TwitterNewsFeed bfeed;
 PImage bg;
 PFont myFont;
 
+boolean world = false;
+
 //Sounds
 SoundFile backgroundSound;
 SoundFile[] switchSound;
@@ -44,7 +46,11 @@ void setup() {
   ofeed = new TwitterNewsFeed(otermsExp[termIndex]);
   
   //Setup background.
-  bg = loadImage("map.png");
+  if(world) {
+    bg = loadImage("map.png");
+  } else {
+    bg = loadImage("map_us.png");
+  }
   
   //Load sounds.
   backgroundSound = new SoundFile(this, "The Stars Are Falling (ambient guitar soundscapeStrymon Big SkyGodin LG).mp3");
@@ -82,6 +88,11 @@ void draw() {
   vertex(width, height, bg.width, bg.height);
   vertex(0, height, 0, bg.height);
   endShape();
+  
+  if(world) {
+    //transform so icons are drawn in right location.
+    pushMatrix();
+  }
   
   //Pick new terms to look at.
   if((millis() / 1000) - lastSwitch > 60) {

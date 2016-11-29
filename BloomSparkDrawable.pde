@@ -38,8 +38,8 @@ public class BloomSparkDrawable extends Drawable {
     for(int i = 0; i < numparts; i++) {
       speeds[2 * i] = random(-speedCap, speedCap);
       speeds[2 * i + 1] = random(-speedCap, speedCap);
-      locs[2 * i] = long2screen(news.getGpsCoordinate().getLongitude()) + random(0);
-      locs[2 * i + 1] = lat2screen(news.getGpsCoordinate().getLatitude()) + random(0);
+      locs[2 * i] = news.getGpsCoordinate().getScreenLong();
+      locs[2 * i + 1] = news.getGpsCoordinate().getScreenLat();
       diameters[i] = 0;
       scalespeeds[i] = random(1);
     }
@@ -76,18 +76,9 @@ public class BloomSparkDrawable extends Drawable {
     noFill();
     if(ringWeight > 2) {
       ringWeight /= 1.01;
-      ellipse(long2screen(news.getGpsCoordinate().getLongitude()), lat2screen(news.getGpsCoordinate().getLatitude()), ringSize, ringSize);
+      ellipse(news.getGpsCoordinate().getScreenLong(), news.getGpsCoordinate().getScreenLat(), ringSize, ringSize);
       ringSize += ringScaler + .25;
       ringScaler/=1.02;
     }
   }
-  
-  private float long2screen(float longe) {
-    return ((longe + 180) * (width / 360.0));
-  }
-  
-  private float lat2screen(float lat) {
-    return ((-lat + 90) * (height / 180.0));
-  }
-  
 }

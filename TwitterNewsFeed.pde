@@ -5,6 +5,11 @@ public class TwitterNewsFeed extends NewsFeed {
   ArrayList<News> latest;
   TwitterStream feed;
   
+  private float n = 49.8;
+  private float s = 24.2;
+  private float e = -66.5;
+  private float w = -125.5;
+  
   Configuration config;
   
   {
@@ -30,10 +35,14 @@ public class TwitterNewsFeed extends NewsFeed {
           //Get the text of the tweets, can print a sample for debug or whatever.
           String contents = status.getText();
           //Fetch the geolocation of the tweets. Will be used to mark the dynamic map.
-          GpsCoordinate loc = new GpsCoordinate((float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude(), (float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude());
+          float lat = (float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLatitude();
+          float lon = (float) status.getPlace().getBoundingBoxCoordinates()[0][0].getLongitude();
+          GpsCoordinate loc = new GpsCoordinate(lat, lon);
           //Add the news item to the queue of unread tweets.
-          synchronized(latest) {
-            latest.add(new News(contents, loc));
+          if(lon < e && lon > w && lat < n && lat > s) {
+            synchronized(latest) {
+              latest.add(new News(contents, loc));
+            }
           }
         } catch (NullPointerException e) {
           //Do nothing.

@@ -65,7 +65,7 @@ public class BloomSparkDrawable extends Drawable {
       //println(locs[2 * i] + " " + locs[2 * i + 1]);
       beginShape();
       texture(img);
-      tint(col, tint/=1.0001);
+      tint(col, tint/=1.00001);
       vertex(locs[2 * i] + d, locs[2 * i + 1] + d, 0, 0);
       vertex(locs[2 * i] + d, locs[2 * i + 1] - d, img.width, 0);
       vertex(locs[2 * i] - d, locs[2 * i + 1] - d, img.width, img.height);

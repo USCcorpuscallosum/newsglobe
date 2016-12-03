@@ -29,7 +29,7 @@ color ocol = color(251, 208, 75);
 int oldHeight;
 
 void setup() {
-  fullScreen(P3D, 2);
+  fullScreen(P3D, 1);
   //size(100, 100, P3D);
   oldHeight = height;
   height = width / 2;
